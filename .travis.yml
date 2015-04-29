@@ -9,4 +9,3 @@ php:
 script:
   - composer self-update
   - composer install
-  - ./bin/phpunit -c phpunit.xml.dist
