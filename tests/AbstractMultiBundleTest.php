@@ -21,6 +21,10 @@ class DummyParentNoDependantsBundle extends AbstractMultiBundle
  */
 class DummyParentDependantsBundle extends AbstractMultiBundle
 {
+    protected function __construct()
+    {
+    }
+
     /**
      * @return \Symfony\Component\HttpKernel\Bundle\BundleInterface[]
      */
@@ -41,6 +45,10 @@ class DummyParentDependantsBundle extends AbstractMultiBundle
  */
 class DummyParentGroupedDependantsBundle extends AbstractMultiBundle
 {
+    protected function __construct()
+    {
+    }
+
     /**
      * @return \Symfony\Component\HttpKernel\Bundle\BundleInterface[]
      */
@@ -65,6 +73,10 @@ class DummyParentGroupedDependantsBundle extends AbstractMultiBundle
  */
 class DummyInvalidReturnTypeBundle extends AbstractMultiBundle
 {
+    protected function __construct()
+    {
+    }
+
     /**
      * @return \Symfony\Component\HttpKernel\Bundle\BundleInterface[]
      */

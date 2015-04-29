@@ -50,6 +50,14 @@ use AshleyDawson\MultiBundle\AbstractMultiBundle;
 class AcmeMyBundle extends AbstractMultiBundle
 {
     /**
+     * Optional: define a protected constructor to stop instantiation outside of registerInto()
+     */
+    protected function __construct()
+    {
+
+    }
+
+    /**
      * Define bundles that this bundle depends on
      */
     protected static function getBundles()
@@ -109,6 +117,14 @@ use AshleyDawson\MultiBundle\AbstractMultiBundle;
 
 class AcmeMyBundle extends AbstractMultiBundle
 {
+    /**
+     * Optional: define a protected constructor to stop instantiation outside of registerInto()
+     */
+    protected function __construct()
+    {
+
+    }
+
     /**
      * Define bundles that this bundle depends on
      */
