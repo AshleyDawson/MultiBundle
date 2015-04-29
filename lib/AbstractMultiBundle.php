@@ -48,9 +48,12 @@ abstract class AbstractMultiBundle extends Bundle
      */
     public static function registerInto(array &$bundles, $env = null)
     {
-        // Must be called from late static binding class name
+        // Must be called using late static binding
         $calledClass = get_called_class();
         $dependencies = $calledClass::getBundles();
+
+        // Register myself
+        $bundles[] = new $calledClass();
 
         // Is an environment grouping being used?
         if (null !== $env) {
@@ -64,7 +67,7 @@ abstract class AbstractMultiBundle extends Bundle
         // Sanity check of return type
         if ( ! is_array($dependencies)) {
             throw new \UnexpectedValueException(
-                sprintf('Return type from %s::getBundles() must be an array, %s given', $calledClass, gettype($dependencies)));
+                sprintf('Return type of %s::getBundles() must be an array, %s given', $calledClass, gettype($dependencies)));
         }
 
         // Remove duplicates
