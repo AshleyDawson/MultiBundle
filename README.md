@@ -148,14 +148,9 @@ class AppKernel extends Kernel
         // Register my bundle and its dependencies for the 'prod' environment
         \Acme\MyBundle\AcmeMyBundle::registerInto($bundles, 'prod');
 
-        // ...
-
         if (in_array($this->getEnvironment(), array('dev'))) {
-            $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
-            $bundles[] = new Acme\DemoBundle\AcmeDemoBundle();
-            $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
-            $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
-            $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+
+            // ...
 
             // Register my bundle and its dependencies for the 'dev' environment
             \Acme\MyBundle\AcmeMyBundle::registerInto($bundles, 'dev');
