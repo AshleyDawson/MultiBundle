@@ -11,4 +11,4 @@ before_script:
   - composer install
 
 script:
-  - ./bin/phpunit -c .
+  - ./bin/phpunit -c phpunit.xml.dist
