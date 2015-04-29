@@ -145,18 +145,11 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
         );
 
-        // Register my bundle and its dependencies for the 'prod' environment
-        \Acme\MyBundle\AcmeMyBundle::registerInto($bundles, 'prod');
+        // Register my bundle and its dependencies for the environment
+        // Where "$this->getEnvironment()" returns 'prod', 'dev', etc.
+        \Acme\MyBundle\AcmeMyBundle::registerInto($bundles, $this->getEnvironment());
 
-        if (in_array($this->getEnvironment(), array('dev'))) {
-
-            // ...
-
-            // Register my bundle and its dependencies for the 'dev' environment
-            \Acme\MyBundle\AcmeMyBundle::registerInto($bundles, 'dev');
-
-            // ...
-        }
+        // ...
     }
 }
 ```
