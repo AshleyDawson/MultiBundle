@@ -12,6 +12,11 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 abstract class AbstractMultiBundle extends Bundle
 {
     /**
+     * @var bool
+     */
+    private static $_hasRegisteredSelf = false;
+
+    /**
      * Register this bundle collection into the Symfony kernel, e.g.
      *
      * <code>
@@ -69,7 +74,10 @@ abstract class AbstractMultiBundle extends Bundle
         }
 
         // Register myself
-        $dependencies[] = new $calledClass();
+        if ( ! self::$_hasRegisteredSelf) {
+            $dependencies[] = new $calledClass();
+            self::$_hasRegisteredSelf = true;
+        }
 
         // Remove duplicates
         foreach ($bundles as $bundle) {

@@ -78,6 +78,8 @@ class DummyInvalidReturnTypeBundle extends AbstractMultiBundle
  * Class AbstractMultiBundleTest
  *
  * @package Ashleydawson\MultiBundle\Tests
+ *
+ * @backupStaticAttributes enabled
  */
 class AbstractMultiBundleTest extends \PHPUnit_Framework_TestCase
 {
@@ -155,10 +157,9 @@ class AbstractMultiBundleTest extends \PHPUnit_Framework_TestCase
 
         DummyParentGroupedDependantsBundle::registerInto($bundles, 'dev');
 
-        $this->assertCount(2, $bundles);
+        $this->assertCount(1, $bundles);
 
         $this->assertInstanceOf('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleThree', $bundles[0]);
-        $this->assertInstanceOf('AshleyDawson\MultiBundle\Tests\DummyParentGroupedDependantsBundle', $bundles[1]);
     }
 
     public function testEnvironmentNotFound()
