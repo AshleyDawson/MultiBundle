@@ -3,7 +3,7 @@ Symfony2 MultiBundle
 
 [![Build Status](https://travis-ci.org/AshleyDawson/MultiBundle.svg)](https://travis-ci.org/AshleyDawson/MultiBundle)
 
-Register multiple bundles within the Symfony2 kernel
+Register multiple, dependant bundles within the Symfony2 kernel
 
 Requirements
 ------------
@@ -90,3 +90,78 @@ class AppKernel extends Kernel
 
 **Note:** You don't need to register the dependencies in the usual way now as the `registerInto()` method takes care of
 that. Also, don't worry about your bundle trying to register duplicate bundles as de-duplication is built in.
+
+**Note:** The `registerInto()` method will automatically register the parent bundle as well as it's dependencies, so you
+don't need to specify the parent bundle in the `getBundles()` return array.
+
+Environment Grouping
+--------------------
+
+Sometimes it's necessary to group bundles by environment. An example of this is that you may not require development bundles
+in production. To do this, simply specify the environment groups within the `getBundles()` method:
+
+```php
+<?php
+
+namespace Acme\MyBundle;
+
+use AshleyDawson\MultiBundle\AbstractMultiBundle;
+
+class AcmeMyBundle extends AbstractMultiBundle
+{
+    /**
+     * Define bundles that this bundle depends on
+     */
+    protected static function getBundles()
+    {
+        return array(
+            'prod' => array(
+                new Acme\FooBundle\AcmeFooBundle(),
+                new Acme\BarBundle\AcmeBarBundle(),
+            ),
+            'dev' => array(
+                new Acme\BazBundle\AcmeBazBundle(),
+            ),
+        );
+    }
+}
+```
+
+Then, in the kernel, filter the registration of bundles using the second argument of the `registerInto()` method:
+
+```php
+// app/AppKernel.php
+
+// ...
+
+class AppKernel extends Kernel
+{
+    // ...
+
+    public function registerBundles()
+    {
+        $bundles = array(
+            // ...,
+            new FOS\UserBundle\FOSUserBundle(),
+        );
+
+        // Register my bundle and its dependencies for the 'prod' environment
+        \Acme\MyBundle\AcmeMyBundle::registerInto($bundles, 'prod');
+
+        // ...
+
+        if (in_array($this->getEnvironment(), array('dev'))) {
+            $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
+            $bundles[] = new Acme\DemoBundle\AcmeDemoBundle();
+            $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
+            $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
+            $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+
+            // Register my bundle and its dependencies for the 'dev' environment
+            \Acme\MyBundle\AcmeMyBundle::registerInto($bundles, 'dev');
+
+            // ...
+        }
+    }
+}
+```
