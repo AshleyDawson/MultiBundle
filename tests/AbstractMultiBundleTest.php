@@ -27,11 +27,11 @@ class DummyParentBundle extends AbstractMultiBundle
      */
     protected static function getBundles()
     {
-        return [
+        return array(
             new DummyDependantOneBundle(),
             new DummyDependantTwoBundle(),
             new DummyThreeBundle(),
-        ];
+        );
     }
 }
 
@@ -45,6 +45,7 @@ class AbstractMultiBundleTest extends \PHPUnit_Framework_TestCase
     {
         $bundles = array(
             new DummyThreeBundle(),
+            new DummyParentBundle(),
         );
 
         DummyParentBundle::registerInto($bundles);

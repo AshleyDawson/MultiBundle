@@ -43,6 +43,7 @@ abstract class AbstractMultiBundle extends Bundle
      *
      * @param \Symfony\Component\HttpKernel\Bundle\BundleInterface[] $bundles
      * @param string|null $env Arbitrary name of environment group to use (optional)
+     * @return void
      * @throws \InvalidArgumentException
      * @throws \UnexpectedValueException
      */
@@ -51,9 +52,6 @@ abstract class AbstractMultiBundle extends Bundle
         // Must be called using late static binding
         $calledClass = get_called_class();
         $dependencies = $calledClass::getBundles();
-
-        // Register myself
-        $bundles[] = new $calledClass();
 
         // Is an environment grouping being used?
         if (null !== $env) {
@@ -69,6 +67,9 @@ abstract class AbstractMultiBundle extends Bundle
             throw new \UnexpectedValueException(
                 sprintf('Return type of %s::getBundles() must be an array, %s given', $calledClass, gettype($dependencies)));
         }
+
+        // Register myself
+        $dependencies[] = new $calledClass();
 
         // Remove duplicates
         foreach ($bundles as $bundle) {
