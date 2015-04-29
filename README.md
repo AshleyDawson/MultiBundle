@@ -145,7 +145,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
         );
 
-        // Register my bundle and its dependencies for the environment
+        // Register my bundle and its dependencies for the specific environment
         // Where "$this->getEnvironment()" returns 'prod', 'dev', etc.
         \Acme\MyBundle\AcmeMyBundle::registerInto($bundles, $this->getEnvironment());
 
@@ -153,3 +153,33 @@ class AppKernel extends Kernel
     }
 }
 ```
+
+**Note:** The example above assumes that the user of your bundle has 'dev' and 'prod' as environment names. A better approach
+is to direct them to statically set the environment argument of `registerInto()` and embed the call within their environment logic, like so:
+
+```php
+// app/AppKernel.php
+
+// ...
+
+class AppKernel extends Kernel
+{
+    // ...
+
+    public function registerBundles()
+    {
+        $bundles = array(
+            // ...,
+            new FOS\UserBundle\FOSUserBundle(),
+        );
+
+        if ('dev' == $this->getEnvironment()) {
+
+            // Register my bundle and its dependencies for the 'dev' environment
+            \Acme\MyBundle\AcmeMyBundle::registerInto($bundles, 'dev');
+        }
+    }
+}
+```
+
+The Symfony2 standard edition already has similar logic in the `app/AppKernel.php`.
