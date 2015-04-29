@@ -9,4 +9,4 @@ php:
 script:
   - composer self-update
   - composer install
-  - phpunit
+  - phpunit --coverage-text
