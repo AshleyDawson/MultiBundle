@@ -154,7 +154,7 @@ class AppKernel extends Kernel
 }
 ```
 
-**Note:** The example above assumes that the user of your bundle has 'dev' and 'prod' as environment names. A better approach
+**Note:** The example above is **not recommended** and assumes that the user of your bundle has 'dev' and 'prod' as environment names. A better approach
 is to direct them to statically set the environment argument of `registerInto()` and embed the call within their environment logic, like so:
 
 ```php
@@ -172,6 +172,9 @@ class AppKernel extends Kernel
             // ...,
             new FOS\UserBundle\FOSUserBundle(),
         );
+
+        // Register my bundle and its dependencies for the 'prod' environment
+        \Acme\MyBundle\AcmeMyBundle::registerInto($bundles, 'prod');
 
         if ('dev' == $this->getEnvironment()) {
 
