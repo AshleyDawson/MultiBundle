@@ -39,6 +39,31 @@ class DummyParentDependantsBundle extends AbstractMultiBundle
 }
 
 /**
+ * Class DummyParentDependantsAltBundle
+ *
+ * @package AshleyDawson\MultiBundle\Tests
+ */
+class DummyParentDependantsAltBundle extends AbstractMultiBundle
+{
+    protected function __construct()
+    {
+    }
+
+    /**
+     * @return \Symfony\Component\HttpKernel\Bundle\BundleInterface[]
+     */
+    protected static function getBundles()
+    {
+        return array(
+            new \AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleOne(),
+            new \AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleTwo(),
+            new \AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleThree(),
+            new \AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleFour(),
+        );
+    }
+}
+
+/**
  * Class DummyParentGroupedDependantsBundle
  *
  * @package AshleyDawson\MultiBundle\Tests
@@ -103,7 +128,7 @@ class AbstractMultiBundleTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(1, $bundles);
 
-        $this->assertInstanceOf('AshleyDawson\MultiBundle\Tests\DummyParentNoDependantsBundle', $bundles[0]);
+        $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\DummyParentNoDependantsBundle', $bundles);
     }
 
     public function testRegisterIntoNoDependantsPrevious()
@@ -117,9 +142,9 @@ class AbstractMultiBundleTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(3, $bundles);
 
-        $this->assertInstanceOf('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleOne', $bundles[0]);
-        $this->assertInstanceOf('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleTwo', $bundles[1]);
-        $this->assertInstanceOf('AshleyDawson\MultiBundle\Tests\DummyParentNoDependantsBundle', $bundles[2]);
+        $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleOne', $bundles);
+        $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleTwo', $bundles);
+        $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\DummyParentNoDependantsBundle', $bundles);
     }
 
     public function testRegisterIntoDependantsNoPrevious()
@@ -130,10 +155,10 @@ class AbstractMultiBundleTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(4, $bundles);
 
-        $this->assertInstanceOf('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleOne', $bundles[0]);
-        $this->assertInstanceOf('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleTwo', $bundles[1]);
-        $this->assertInstanceOf('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleThree', $bundles[2]);
-        $this->assertInstanceOf('AshleyDawson\MultiBundle\Tests\DummyParentDependantsBundle', $bundles[3]);
+        $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleOne', $bundles);
+        $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleTwo', $bundles);
+        $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleThree', $bundles);
+        $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\DummyParentDependantsBundle', $bundles);
     }
 
     public function testRegisterIntoDependantsPrevious()
@@ -147,10 +172,10 @@ class AbstractMultiBundleTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(4, $bundles);
 
-        $this->assertInstanceOf('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleOne', $bundles[0]);
-        $this->assertInstanceOf('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleTwo', $bundles[1]);
-        $this->assertInstanceOf('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleThree', $bundles[2]);
-        $this->assertInstanceOf('AshleyDawson\MultiBundle\Tests\DummyParentDependantsBundle', $bundles[3]);
+        $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleOne', $bundles);
+        $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleTwo', $bundles);
+        $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleThree', $bundles);
+        $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\DummyParentDependantsBundle', $bundles);
     }
 
     public function testRegisterIntoGroupedDependantsNoPrevious()
@@ -161,9 +186,9 @@ class AbstractMultiBundleTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(3, $bundles);
 
-        $this->assertInstanceOf('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleOne', $bundles[0]);
-        $this->assertInstanceOf('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleTwo', $bundles[1]);
-        $this->assertInstanceOf('AshleyDawson\MultiBundle\Tests\DummyParentGroupedDependantsBundle', $bundles[2]);
+        $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleOne', $bundles);
+        $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleTwo', $bundles);
+        $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\DummyParentGroupedDependantsBundle', $bundles);
 
         $bundles = array();
 
@@ -171,7 +196,7 @@ class AbstractMultiBundleTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(1, $bundles);
 
-        $this->assertInstanceOf('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleThree', $bundles[0]);
+        $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleThree', $bundles);
     }
 
     public function testEnvironmentNotFound()
@@ -190,5 +215,35 @@ class AbstractMultiBundleTest extends \PHPUnit_Framework_TestCase
         $bundles = array();
 
         DummyInvalidReturnTypeBundle::registerInto($bundles);
+    }
+
+    public function testMoreThanOneMultiBundleRegistrationNoPrevious()
+    {
+        $bundles = array();
+
+        DummyParentDependantsBundle::registerInto($bundles);
+
+        DummyParentDependantsAltBundle::registerInto($bundles);
+
+        $this->assertCount(6, $bundles);
+
+        $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleOne', $bundles);
+        $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleTwo', $bundles);
+        $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleThree', $bundles);
+        $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\DummyParentDependantsBundle', $bundles);
+        $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleFour', $bundles);
+        $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\DummyParentDependantsAltBundle', $bundles);
+    }
+
+    private function _assertInstanceInArray($expected, array $haystack)
+    {
+        foreach ($haystack as $item) {
+            if ($expected == get_class($item)) {
+                $this->assertTrue(true, sprintf('Instance "%s" found in array', $expected));
+                return;
+            }
+        }
+
+        $this->assertTrue(false, sprintf('Instance "%s" not found in array', $expected));
     }
 }

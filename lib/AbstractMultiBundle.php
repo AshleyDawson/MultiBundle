@@ -12,9 +12,9 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 abstract class AbstractMultiBundle extends Bundle
 {
     /**
-     * @var bool
+     * @var bool[]
      */
-    private static $_hasRegisteredSelf = false;
+    private static $_hasRegisteredSelfFlags = array();
 
     /**
      * Register this bundle collection into the Symfony kernel, e.g.
@@ -74,9 +74,9 @@ abstract class AbstractMultiBundle extends Bundle
         }
 
         // Register myself
-        if ( ! self::$_hasRegisteredSelf) {
+        if ( ! isset(self::$_hasRegisteredSelfFlags[$calledClass])) {
             $dependencies[] = new $calledClass();
-            self::$_hasRegisteredSelf = true;
+            self::$_hasRegisteredSelfFlags[$calledClass] = true;
         }
 
         // Remove duplicates
