@@ -16,8 +16,9 @@ Requirements
 Introduction
 ------------
 
-When developing solutions that use a multi-bundle configuration in Symfony2 - this library provides an unobtrusive way
-of logically grouping dependant bundles together so that they can be registered with the Symfony kernel in one command.
+When developing solutions that use a multi-bundle configuration in Symfony2 - this library provides an unobtrusive way of logically grouping dependant bundles together so that they can be registered with the Symfony kernel in one command.
+
+The reason for building this helper is so that you can manage parallel dependant bundles. Alternatively you could use [bundle inheritance](http://symfony.com/doc/current/cookbook/bundles/inheritance.html) to solve this problem - but that may violate the single responsibility principal as the child bundle may have a different responsibility to its parent.
 
 Installation
 ------------
