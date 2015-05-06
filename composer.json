@@ -2,6 +2,7 @@
   "name": "ashleydawson/multibundle",
   "type": "library",
   "description": "Register multiple bundles within the Symfony2 kernel",
+  "license": "MIT",
   "keywords": [
     "symfony",
     "symfony2",
