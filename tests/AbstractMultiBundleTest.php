@@ -190,11 +190,13 @@ class AbstractMultiBundleTest extends \PHPUnit_Framework_TestCase
         $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleTwo', $bundles);
         $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\DummyParentGroupedDependantsBundle', $bundles);
 
-        $bundles = array();
+        $bundles = array_filter($bundles, function($bundle){
+            return ($bundle instanceof DummyParentGroupedDependantsBundle);
+        });
 
         DummyParentGroupedDependantsBundle::registerInto($bundles, 'dev');
 
-        $this->assertCount(1, $bundles);
+        $this->assertCount(2, $bundles);
 
         $this->_assertInstanceInArray('AshleyDawson\MultiBundle\Tests\Fixture\DummyBundleThree', $bundles);
     }
