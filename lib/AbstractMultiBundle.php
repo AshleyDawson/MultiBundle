@@ -74,10 +74,7 @@ abstract class AbstractMultiBundle extends Bundle
         }
 
         // Register myself
-        if ( ! isset(self::$_hasRegisteredSelfFlags[$calledClass])) {
-            $dependencies[] = new $calledClass();
-            self::$_hasRegisteredSelfFlags[$calledClass] = true;
-        }
+        $dependencies[] = new $calledClass();
 
         // Remove duplicates
         foreach ($bundles as $bundle) {
