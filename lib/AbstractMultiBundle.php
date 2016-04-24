@@ -12,11 +12,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 abstract class AbstractMultiBundle extends Bundle
 {
     /**
-     * @var bool[]
-     */
-    private static $_hasRegisteredSelfFlags = array();
-
-    /**
      * Register this bundle collection into the Symfony kernel, e.g.
      *
      * <code>
